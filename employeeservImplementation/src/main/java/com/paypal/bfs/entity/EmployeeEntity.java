@@ -8,7 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.Constraint;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.paypal.bfs.validations.ValidateEmployeeDetails;
 
 import lombok.Data;
 
@@ -25,18 +31,23 @@ public class EmployeeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
+
 	@Column
-	@NotNull
+	@NotEmpty(message = "First name should not be blank.")
+	@ValidateEmployeeDetails
 	String firstName;
+	
 	@Column
-	@NotNull
+	@NotEmpty(message = "Last name should not be blank.")
+	@ValidateEmployeeDetails
 	String lastName; 
+	
 	@Column
-	@NotNull
+	@NotEmpty(message = "date of birth should not be blank.")
+	@ValidateEmployeeDetails
 	String dateOfBirth;
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@NotNull
 	AddressEntity address;
 
 	public Integer getId() {
