@@ -5,7 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.NumberFormat;
+
+import com.paypal.bfs.validations.NumericString;
+import com.paypal.bfs.validations.ValidateAddressDetails;
+import com.paypal.bfs.validations.ValidateEmployeeDetails;
 
 import lombok.Data;
 
@@ -22,22 +32,33 @@ public class AddressEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
+	
 	@Column
-	@NotNull
+	@ValidateAddressDetails
+	@NotEmpty(message = "line1 in address should not be blank.")
 	String line1;
+	
 	@Column
 	String line2;
+	
 	@Column
-	@NotNull
+	@ValidateAddressDetails
+	@NotEmpty(message = "City value should not be blank.")
 	String city;
+	
 	@Column
-	@NotNull
+	@ValidateAddressDetails
+	@NotEmpty(message = "State value in address should not be blank.")
 	String state;
+	
 	@Column
-	@NotNull
+	@ValidateAddressDetails
+	@NotEmpty(message = "Country value in address should not be blank.")
 	String Country;
+	
 	@Column
-	@NotNull
+	@ValidateAddressDetails
+	@NotEmpty(message = "Zip code value in address should not be blank.")
 	String zipCode;
 	
 	public Integer getId() {

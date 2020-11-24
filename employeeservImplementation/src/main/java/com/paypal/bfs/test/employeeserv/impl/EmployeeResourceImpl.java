@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.print.attribute.standard.Severity;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 
 import org.glassfish.jersey.internal.Errors.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class EmployeeResourceImpl implements EmployeeResource {
      * This method is a rest end point which accepts employee object and saves it in DB
      */
 	@Override
-	public ResponseEntity<Employee> addEmployee(Employee employee) {
+	public ResponseEntity<Employee> addEmployee(@Valid Employee employee) {
 		
 		employeeService.addEmployee(employee);
         return new ResponseEntity<>(employee, HttpStatus.OK);
